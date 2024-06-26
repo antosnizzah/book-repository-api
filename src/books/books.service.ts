@@ -1,42 +1,68 @@
-import db from "../drizzle/db"
-import { BookTable,TIBook,TSBook } from "../drizzle/schema"
-import { eq } from "drizzle-orm"
+import db from "../drizzle/db";
+import { BookTable, TIBook, TSBook } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 
-// GET ALL Users with a limit
+// GET ALL Books with a limit
 export const getBooksService = async (limit: number): Promise<TSBook[] | null> => {
-    const Books = await db.query.BookTable.findMany({
-        limit: limit
+  try {
+    const books = await db.query.BookTable.findMany({
+      limit: limit
     });
-    return Books;
+    return books;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    throw new Error("Failed to fetch books");
+  }
 };
+
 // GET BOOK BY ID
 export const getBooksByIdService = async (id: number) => {
-    const Books = await db.query.BookTable.findFirst({
-        where: eq(BookTable.id, id),
-        columns: {
-            id: true,
-            title: true,
-            author: true,
-            year_of_publication: true
-        }});
-        return Books;
-    }
+  try {
+    const book = await db.query.BookTable.findFirst({
+      where: eq(BookTable.id, id),
+      columns: {
+        id: true,
+        title: true,
+        author: true,
+        year_of_publication: true
+      }
+    });
+    return book;
+  } catch (error) {
+    console.error("Error fetching book by ID:", error);
+    throw new Error("Failed to fetch book by ID");
+  }
+};
 
-
-        // CREATE BOOKS
+// CREATE BOOK
 export const createBooksService = async (item: TIBook) => {
-    await db.insert(BookTable).values(item)
-    return "book created successfully";
-}
+  try {
+    await db.insert(BookTable).values(item);
+    return "Book created successfully";
+  } catch (error) {
+    console.error("Error creating book:", error);
+    throw new Error("Failed to create book");
+  }
+};
 
-//  UPDATE BOOKS
+// UPDATE BOOK
 export const updateBooksService = async (id: number, item: TIBook) => {
+  try {
     await db.update(BookTable).set(item).where(eq(BookTable.id, id));
-    return "book  updated successfully";
-}
+    return "Book updated successfully";
+  } catch (error) {
+    console.error("Error updating book:", error);
+    throw new Error("Failed to update book");
+  }
+};
 
-// DELETE BOOKS
+// DELETE BOOK
 export const deleteBooksService = async (id: number) => {
+  try {
     await db.delete(BookTable).where(eq(BookTable.id, id));
-    return "book  deleted successfully";
-}
+    return "Book deleted successfully";
+  } catch (error) {
+    console.error("Error deleting book:", error);
+    throw new Error("Failed to delete book");
+  }
+};
