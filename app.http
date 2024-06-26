@@ -1,0 +1,39 @@
+###testing my app
+GET http://localhost:8000/
+###get all books
+GET http://localhost:8000/books
+
+###get books by id
+GET http://localhost:8000/books/3
+
+###create a book
+POST http://localhost:8000/books
+Content-Type: application/json
+
+{
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year_of_publication": 1925
+}
+### update a given book
+PUT http://localhost:8000/books/2
+Content-Type: application/json
+
+{
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year": 1925
+}
+###delete a book
+
+DELETE http://localhost:8000/books/2
+
+
+
+
+
+
+
+
+
+
