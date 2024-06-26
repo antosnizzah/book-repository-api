@@ -39,16 +39,16 @@ export const getBooksByIdController = async (c: Context) => {
 
 // CREATE Book
 export const createBookController = async (c: Context) => {
-  try {
-    const book = await c.req.json();
-    const newBook = await createBooksService(book);
-    if (!newBook) return c.text("Book not created", 400);
-    return c.json({ message: newBook }, 201);
-  } catch (error: any) {
-    console.error("Error in createBookController:", error);
-    return c.json({ error: error?.message }, 500);
-  }
-};
+    try {
+      const book = await c.req.json();
+      const newBook = await createBooksService(book);
+      if (!newBook) return c.text("Book not created", 400);
+      return c.json({ message: newBook }, 201);
+    } catch (error: any) {
+      console.error("Error in createBookController:", error);
+      return c.json({ error: error?.message }, 500);
+    }
+  };
 
 // UPDATE Book
 export const updateBookController = async (c: Context) => {
