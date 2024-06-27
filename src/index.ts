@@ -7,12 +7,13 @@ import { Pool } from 'pg';
 import "dotenv/config";
 
 const app = new Hono();
-const pool = new Pool(); // Define the pool variable
+
 
 // Enable CORS for all routes
 app.use('*', cors({
-  origin: 'http://localhost:5173', // Replace with your frontend URL
+  origin: 'https://fullstack-book-repo.vercel.app', // Replace with your frontend URL
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 }));
 
 // Attach the book router
